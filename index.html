@@ -27,10 +27,12 @@ body {
 }
 img {
  width: 100%;
- max-width: 280px;
+ max-width: 260px;
  height: auto;
- border-radius: 15px;
- margin-bottom: 15px;
+ border-radius: 20px;
+ margin: 15px auto;
+ display: block;
+ box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 .heart {
  position: absolute;
@@ -46,18 +48,35 @@ img {
 </head>
 <body>
 <div class="card">
-<h2>Happy Birthday, My Precious ❤️</h2>
-<!-- 📸 YOUR IMAGE -->
-<img src="https://i.ibb.co/JWbskhkk/IMG-2113.jpg">
+<h2 id="title">Something is waiting for you... ⏳</h2>
+<p id="countdown"></p>
+<img src="https://i.ibb.co/JWbskhkk/IMG-2113.jpg" id="photo" style="display:none;">
 <p id="text"></p>
 </div>
-<!-- 🎶 MUSIC -->
-<audio id="music" loop autoplay>
+<audio id="music" loop>
 <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
 </audio>
 <script>
+// ⏳ SET YOUR TIME HERE
+const targetDate = new Date("2026-03-19T00:00:00").getTime();
+const countdownEl = document.getElementById("countdown");
+const interval = setInterval(() => {
+ const now = new Date().getTime();
+ const diff = targetDate - now;
+ if (diff <= 0) {
+   clearInterval(interval);
+   countdownEl.style.display = "none";
+   document.getElementById("title").innerText = "Happy Birthday, My Precious ❤️";
+   startMessage();
+ } else {
+   const h = Math.floor((diff % (1000*60*60*24))/(1000*60*60));
+   const m = Math.floor((diff % (1000*60*60))/(1000*60));
+   const s = Math.floor((diff % (1000*60))/1000);
+   countdownEl.innerHTML = `${h}h ${m}m ${s}s`;
+ }
+}, 1000);
 // 💌 MESSAGE
-const message = `TO MY DARLING...
+const message = `TO MY GENTLEMAN...
 You came into my life so quietly,
 but became the most beautiful part of it.
 You are everything I hoped for,
@@ -65,9 +84,15 @@ everything I wished for…
 and more.
 I am so proud of you.
 And I will keep choosing you,
-always and celebrating you everyday.
-HAPPY BIRTHDAY BUJJI! All success and happiness to you ❤️`;
+always and celebrating you everyday!
+Happy Birthday Bujji! All success and happiness to you❤️`;
 let i = 0;
+function startMessage() {
+ document.getElementById("music").play();
+ document.getElementById("photo").style.display = "block";
+ typeWriter();
+ createHearts();
+}
 function typeWriter() {
  if (i < message.length) {
    document.getElementById("text").innerHTML += message.charAt(i);
@@ -89,12 +114,6 @@ function createHearts() {
    }, 6000);
  }, 300);
 }
-// 🚀 START EVERYTHING
-window.onload = function() {
- document.getElementById("music").play();
- typeWriter();
- createHearts();
-};
 </script>
 </body>
 </html>
