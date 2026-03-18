@@ -29,7 +29,6 @@ img {
  width: 100%;
  border-radius: 15px;
  margin-bottom: 15px;
- display: none;
 }
 .heart {
  position: absolute;
@@ -45,35 +44,16 @@ img {
 </head>
 <body>
 <div class="card">
-<h2 id="title">Something is waiting for you... ⏳</h2>
-<p id="countdown"></p>
+<h2>Happy Birthday, My Precious ❤️</h2>
 <!-- 📸 YOUR IMAGE -->
-<img src="https://i.ibb.co/JWbskhkk/IMG-2113.jpg" id="photo">
+<img src="https://i.ibb.co/JWbskhkk/IMG-2113.jpg">
 <p id="text"></p>
 </div>
 <!-- 🎶 MUSIC -->
-<audio id="music" loop>
+<audio id="music" loop autoplay>
 <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
 </audio>
 <script>
-// ⏳ SET TIME
-const targetDate = new Date("2026-03-19T00:00:00").getTime();
-const countdownEl = document.getElementById("countdown");
-const interval = setInterval(() => {
- const now = new Date().getTime();
- const diff = targetDate - now;
- if (diff <= 0) {
-   clearInterval(interval);
-   countdownEl.style.display = "none";
-   document.getElementById("title").innerText = "Happy Birthday, My Precious ❤️";
-   startMessage(); // AUTO START
- } else {
-   const h = Math.floor((diff % (1000*60*60*24))/(1000*60*60));
-   const m = Math.floor((diff % (1000*60*60))/(1000*60));
-   const s = Math.floor((diff % (1000*60))/1000);
-   countdownEl.innerHTML = `${h}h ${m}m ${s}s`;
- }
-}, 1000);
 // 💌 MESSAGE
 const message = `Hey my love...
 You came into my life so quietly,
@@ -99,12 +79,6 @@ And I will keep choosing you,
 always.
 Happy Birthday ❤️`;
 let i = 0;
-function startMessage() {
- document.getElementById("music").play();
- document.getElementById("photo").style.display = "block";
- typeWriter();
- createHearts();
-}
 function typeWriter() {
  if (i < message.length) {
    document.getElementById("text").innerHTML += message.charAt(i);
@@ -126,6 +100,12 @@ function createHearts() {
    }, 6000);
  }, 300);
 }
+// 🚀 START EVERYTHING
+window.onload = function() {
+ document.getElementById("music").play();
+ typeWriter();
+ createHearts();
+};
 </script>
 </body>
 </html>
